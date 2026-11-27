@@ -24,7 +24,7 @@ const APP = {
     timerInterval: null,
     gameInterval: null,
     readyTimeout: null,
-    apiBase: 'http://localhost:3000',
+    apiBase: '',
     isAuthenticated: false,
     currentUserId: null,
     currentUsername: null,
