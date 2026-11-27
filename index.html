@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reaction Tap Duel</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <audio id="bg-music" loop>
+    <source src="assets/sounds/background.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div id="app">
+    <!-- Home / Landing Screen -->
+    <section id="screen-home" class="screen active">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <nav class="nav">
+            <a href="#" class="nav-link" id="nav-login">Login</a>
+            <a href="#" class="nav-link" id="nav-register">Register</a>
+            <a href="#" class="nav-link" id="nav-leaderboard">Leaderboard</a>
+            <a href="#" class="nav-link" id="nav-match-history">Match History</a>
+            <a href="#" class="nav-link" id="nav-profile">Profile</a>
+          </nav>
+        </header>
+
+        <main class="hero">
+          <h1 class="hero-title">Tap Faster Than Your Opponent</h1>
+          <p class="hero-subtitle">A real-time multiplayer reaction game. Be the first to tap when the light turns green.</p>
+
+          <div class="hero-auth">
+            <div id="auth-status" class="auth-status">
+              <span id="auth-user" class="auth-user"></span>
+              <button id="btn-logout" class="btn btn-ghost btn-small" style="display:none;">Logout</button>
+            </div>
+            <div id="sound-control" class="sound-control">
+              <button id="btn-sound-toggle" class="btn btn-ghost btn-small" title="Sound FX">🔊</button>
+              <input type="range" id="sound-volume" class="sound-volume" min="0" max="1" step="0.1" value="0.7" style="display:none;">
+              <button id="btn-music-toggle" class="btn btn-ghost btn-small" title="Music">🎵</button>
+              <input type="range" id="music-volume" class="music-volume" min="0" max="1" step="0.1" value="0.5" style="display:none;">
+            </div>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-value" id="stat-wins">0</span>
+              <span class="stat-label">Wins</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="stat-games">0</span>
+              <span class="stat-label">Games Played</span>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Login Screen -->
+    <section id="screen-login" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-login" class="btn btn-ghost">Back</button>
+        </header>
+
+        <main class="auth-screen">
+          <div class="auth-card">
+            <h2 class="auth-title">Welcome Back</h2>
+            <p class="auth-subtitle">Sign in to your account</p>
+
+            <form id="form-login" class="auth-form">
+              <div class="form-group">
+                <label for="login-username" class="form-label">Username</label>
+                <input type="text" id="login-username" class="form-input" placeholder="Enter your username" required />
+              </div>
+
+              <div class="form-group">
+                <label for="login-password" class="form-label">Password</label>
+                <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required />
+              </div>
+
+              <div id="login-error" class="auth-error" style="display:none;"></div>
+
+              <button type="submit" class="btn btn-primary btn-large auth-btn">Login</button>
+            </form>
+
+            <p class="auth-switch">
+              Don't have an account? <a href="#" id="link-to-register" class="auth-link">Register</a>
+            </p>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Register Screen -->
+    <section id="screen-register" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-register" class="btn btn-ghost">Back</button>
+        </header>
+
+        <main class="auth-screen">
+          <div class="auth-card">
+            <h2 class="auth-title">Create Account</h2>
+            <p class="auth-subtitle">Join the Reaction Tap Duel community</p>
+
+            <form id="form-register" class="auth-form">
+              <div class="form-group">
+                <label for="reg-username" class="form-label">Username</label>
+                <input type="text" id="reg-username" class="form-input" placeholder="Choose a username" required />
+              </div>
+
+              <div class="form-group">
+                <label for="reg-email" class="form-label">Email</label>
+                <input type="email" id="reg-email" class="form-input" placeholder="Enter your email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="reg-password" class="form-label">Password</label>
+                <input type="password" id="reg-password" class="form-input" placeholder="Create a password" required />
+              </div>
+
+              <div class="form-group">
+                <label for="reg-confirm-password" class="form-label">Confirm Password</label>
+                <input type="password" id="reg-confirm-password" class="form-input" placeholder="Confirm your password" required />
+              </div>
+
+              <div id="register-error" class="auth-error" style="display:none;"></div>
+
+              <button type="submit" class="btn btn-primary btn-large auth-btn">Register</button>
+            </form>
+
+            <p class="auth-switch">
+              Already have an account? <a href="#" id="link-to-login" class="auth-link">Login</a>
+            </p>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Lobby / Waiting Screen -->
+    <section id="screen-lobby" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-lobby" class="btn btn-ghost">Back</button>
+          <div id="lobby-user-bar" class="lobby-user-bar" style="display:none;">
+            <span id="lobby-username" class="lobby-username">User</span>
+            <button id="btn-lobby-profile" class="btn btn-ghost btn-small">Profile</button>
+          </div>
+        </header>
+
+        <main class="lobby">
+          <h2 class="lobby-title">Game Lobby</h2>
+          <p class="lobby-subtitle">Create or join a room to play with a friend</p>
+
+          <div id="auth-gate" class="auth-gate" style="display:none;">
+            <p class="auth-gate-message">Please <a href="#" id="link-login-from-lobby" class="auth-link">login</a> or <a href="#" id="link-register-from-lobby" class="auth-link">register</a> to create or join rooms.</p>
+          </div>
+
+          <div id="room-actions" class="room-actions" style="display:none;">
+            <div class="room-create-section">
+              <button id="btn-create-room" class="btn btn-primary btn-large">Create Room</button>
+            </div>
+
+            <div class="room-join-section">
+              <div class="room-join-form">
+                <label for="join-room-code" class="form-label">Room Code</label>
+                <input type="text" id="join-room-code" class="form-input" placeholder="Enter 6-character code" maxlength="6" />
+                <button id="btn-join-room" class="btn btn-primary btn-large">Join Room</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="room-info" class="room-info" style="display:none;">
+            <div class="room-code-display">
+              <span class="room-label">Room Code:</span>
+              <span id="current-room-code" class="room-value"></span>
+              <button id="btn-copy-room-code" class="btn btn-small">Copy</button>
+            </div>
+
+            <div class="players-list">
+              <div class="player-card" id="player-card-1">
+                <span class="player-badge">P1</span>
+                <span id="player-name-1" class="player-name">Waiting...</span>
+                <span id="player-status-1" class="player-status waiting">Not Ready</span>
+              </div>
+              <div class="player-card" id="player-card-2">
+                <span class="player-badge">P2</span>
+                <span id="player-name-2" class="player-name">Waiting...</span>
+                <span id="player-status-2" class="player-status waiting">Not Ready</span>
+              </div>
+            </div>
+
+            <div class="lobby-actions">
+              <button id="btn-toggle-ready" class="btn btn-primary btn-large">I'm Ready</button>
+              <button id="btn-start-game" class="btn btn-primary btn-large" style="display:none;">Start Game</button>
+              <button id="btn-leave-room" class="btn btn-ghost">Leave Room</button>
+            </div>
+
+            <p id="lobby-message" class="lobby-message"></p>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Countdown Screen -->
+    <section id="screen-countdown" class="screen">
+      <div class="container">
+        <div class="countdown-display">
+          <div id="countdown-number" class="countdown-number">3</div>
+          <div class="countdown-hint">Get ready...</div>
+        </div>
+        <div class="players-preview">
+          <div class="player-preview">
+            <span class="player-badge">P1</span>
+            <span id="preview-name-1" class="player-name">You</span>
+          </div>
+          <div class="player-preview">
+            <span class="player-badge">P2</span>
+            <span id="preview-name-2" class="player-name">Opponent</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Screen -->
+    <section id="screen-game" class="screen">
+      <div class="container">
+        <header class="game-header">
+          <div class="score-board">
+            <div class="score-player">
+              <span class="score-badge">P1</span>
+              <span id="score-name-1" class="score-name">You</span>
+              <span id="score-1" class="score-value">0</span>
+            </div>
+            <div class="score-vs">VS</div>
+            <div class="score-player">
+              <span class="score-badge">P2</span>
+              <span id="score-name-2" class="score-name">Opponent</span>
+              <span id="score-2" class="score-value">0</span>
+            </div>
+          </div>
+          <div id="game-round-display" class="game-round-display">Round <span id="round-number">0</span>/<span id="round-total">5</span></div>
+          <div id="game-timer" class="game-timer">10</div>
+        </header>
+
+        <div class="game-arena">
+          <div id="emote-display" class="emote-display"></div>
+          <div id="tap-zone-1" class="tap-zone tap-zone-active">
+            <div class="tap-light" id="light-1"></div>
+            <div class="tap-label">P1 TAP</div>
+            <div class="tap-instruction" id="instr-1">Wait for green</div>
+          </div>
+
+          <div id="tap-zone-2" class="tap-zone tap-zone-active">
+            <div class="tap-light" id="light-2"></div>
+            <div class="tap-label">P2 TAP</div>
+            <div class="tap-instruction" id="instr-2">Wait for green</div>
+          </div>
+        </div>
+
+        <div id="emote-picker" class="emote-picker">
+          <div class="emote-option" data-emoji="😂">😂</div>
+          <div class="emote-option" data-emoji="😭">😭</div>
+          <div class="emote-option" data-emoji="🤡">🤡</div>
+          <div class="emote-option" data-emoji="💀">💀</div>
+          <div class="emote-option" data-emoji="🤣">🤣</div>
+          <div class="emote-option" data-emoji="😎">😎</div>
+          <div class="emote-option" data-emoji="🔥">🔥</div>
+          <div class="emote-option" data-emoji="❤️">❤️</div>
+        </div>
+
+        <div class="game-footer">
+          <button id="btn-surrender" class="btn btn-ghost btn-small">Surrender</button>
+          <button id="btn-end-game" class="btn btn-ghost btn-small">End Game</button>
+          <button id="btn-emote" class="btn btn-ghost btn-small" title="Emote">😀</button>
+          <div id="game-status" class="game-status">Game in progress</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Over Screen -->
+    <section id="screen-gameover" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-gameover" class="btn btn-ghost">Back to Menu</button>
+        </header>
+
+        <main class="battle-results">
+          <!-- VS Battle Announcement -->
+          <div class="battle-header">
+            <div class="vs-badge">FINAL RESULT</div>
+            <h1 id="battle-title" class="battle-title">🏆 MATCH OVER</h1>
+          </div>
+
+          <!-- Winner Announcement -->
+          <div id="winner-announcement" class="winner-announcement">
+            <span id="winner-crown" class="winner-crown">👑</span>
+            <span id="winner-name-display" class="winner-name-display"></span>
+            <span id="winner-badge-display" class="winner-badge-display">WINNER</span>
+          </div>
+
+          <!-- VS Battle Cards -->
+          <div class="vs-battle-container">
+            <!-- Player 1 Card -->
+            <div class="battle-card" id="battle-card-1">
+              <div class="player-slot player-1">
+                <span class="player-side-badge">P1</span>
+                <span id="final-name-1" class="battle-player-name">Player 1</span>
+              </div>
+              <div class="player-score">
+                <span id="final-score-1" class="battle-score-value">0</span>
+                <span class="score-label">POINTS</span>
+              </div>
+              <span id="winner-badge-1" class="card-badge winner-badge">WINNER</span>
+              <span id="loser-badge-1" class="card-badge loser-badge">LOSER</span>
+              <div class="battle-glow" id="glow-1"></div>
+            </div>
+
+            <!-- VS Center -->
+            <div class="vs-center">
+              <div class="vs-text">VS</div>
+              <div id="vs-scores" class="vs-scores">
+                <span id="center-score-1">0</span> - <span id="center-score-2">0</span>
+              </div>
+            </div>
+
+            <!-- Player 2 Card -->
+            <div class="battle-card" id="battle-card-2">
+              <div class="player-slot player-2">
+                <span class="player-side-badge">P2</span>
+                <span id="final-name-2" class="battle-player-name">Player 2</span>
+              </div>
+              <div class="player-score">
+                <span id="final-score-2" class="battle-score-value">0</span>
+                <span class="score-label">POINTS</span>
+              </div>
+              <span id="winner-badge-2" class="card-badge winner-badge">WINNER</span>
+              <span id="loser-badge-2" class="card-badge loser-badge">LOSER</span>
+              <div class="battle-glow" id="glow-2"></div>
+            </div>
+          </div>
+
+          <!-- Personal Result -->
+          <div class="personal-result">
+            <h1 id="gameover-title" class="personal-title"></h1>
+            <p id="gameover-message" class="personal-message"></p>
+          </div>
+
+          <div class="gameover-actions">
+            <button id="btn-play-again" class="btn btn-primary btn-large">PLAY AGAIN</button>
+            <button id="btn-back-lobby" class="btn btn-ghost">BACK TO LOBBY</button>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Leaderboard Screen -->
+    <section id="screen-leaderboard" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-leaderboard" class="btn btn-ghost">Back</button>
+        </header>
+
+        <main class="leaderboard-screen">
+          <h2 class="leaderboard-title">Leaderboard</h2>
+          <p class="leaderboard-subtitle">Ranked by total wins</p>
+
+          <div class="leaderboard-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Player</th>
+                  <th>Wins</th>
+                  <th>Losses</th>
+                  <th>Games</th>
+                  <th>Win Rate</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-body">
+                <!-- Leaderboard rows populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="leaderboard-empty" class="empty-state" style="display:none;">
+            <p>No matches played yet. Be the first to climb the ranks!</p>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Match History Screen -->
+    <section id="screen-match-history" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-match-history" class="btn btn-ghost">Back</button>
+        </header>
+
+        <main class="match-history-screen">
+          <h2 class="match-history-title">Match History</h2>
+          <p class="match-history-subtitle">Your recent matches</p>
+
+          <div class="match-history-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Opponent</th>
+                  <th>Winner</th>
+                  <th>P1 Score</th>
+                  <th>P2 Score</th>
+                  <th>My Result</th>
+                  <th>My Reaction</th>
+                  <th>Match Date</th>
+                </tr>
+              </thead>
+              <tbody id="match-history-body">
+                <!-- Match history rows populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="match-history-empty" class="empty-state" style="display:none;">
+            <p>No match history yet. Play some games to see them here!</p>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Player Profile Screen -->
+    <section id="screen-profile" class="screen">
+      <div class="container">
+        <header class="header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">Reaction Tap Duel</span>
+          </div>
+          <button id="btn-back-profile" class="btn btn-ghost">Back</button>
+        </header>
+
+        <main class="profile-screen">
+          <div class="profile-card">
+            <div class="profile-header">
+              <h2 class="profile-title">Player Profile</h2>
+              <span id="profile-username" class="profile-username">Player</span>
+            </div>
+
+            <div class="profile-info">
+              <div class="profile-info-item">
+                <span class="profile-info-label">Email</span>
+                <span id="profile-email" class="profile-info-value">-</span>
+              </div>
+              <div class="profile-info-item">
+                <span class="profile-info-label">Member Since</span>
+                <span id="profile-member-since" class="profile-info-value">-</span>
+              </div>
+              <div class="profile-info-item">
+                <span class="profile-info-label">User ID</span>
+                <span id="profile-user-id" class="profile-info-value">-</span>
+              </div>
+            </div>
+
+            <div class="profile-stats">
+              <h3 class="profile-stats-title">Statistics</h3>
+              <div class="profile-stat-item">
+                <span class="profile-stat-value" id="profile-total-games">0</span>
+                <span class="profile-stat-label">Total Games</span>
+              </div>
+              <div class="profile-stat-item">
+                <span class="profile-stat-value" id="profile-wins">0</span>
+                <span class="profile-stat-label">Wins</span>
+              </div>
+              <div class="profile-stat-item">
+                <span class="profile-stat-value" id="profile-losses">0</span>
+                <span class="profile-stat-label">Losses</span>
+              </div>
+              <div class="profile-stat-item">
+                <span class="profile-stat-value" id="profile-win-rate">0.0%</span>
+                <span class="profile-stat-label">Win Rate</span>
+              </div>
+              <div class="profile-stat-item">
+                <span class="profile-stat-value" id="profile-best-time">-</span>
+                <span class="profile-stat-label">Best Reaction Time</span>
+              </div>
+            </div>
+
+            <div class="profile-actions">
+              <button id="btn-profile-leaderboard" class="btn btn-primary btn-large">View Leaderboard</button>
+              <button id="btn-profile-back-lobby" class="btn btn-ghost btn-small">Back to Lobby</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
